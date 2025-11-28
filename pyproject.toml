@@ -1,0 +1,27 @@
+[project]
+name = "llm-quiz-solver"
+version = "1.0.0"
+description = "Autonomous LLM agent for solving data science quizzes"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.32.0",
+    "playwright>=1.48.0",
+    "langgraph>=0.2.45",
+    "langchain>=0.3.7",
+    "langchain-google-genai>=2.0.5",
+    "python-dotenv>=1.0.1",
+    "requests>=2.32.3",
+]
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["agent", "config", "main"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tools*"]
