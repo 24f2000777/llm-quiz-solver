@@ -1,0 +1,25 @@
+name: Keep HuggingFace Space Alive
+
+on:
+  schedule:
+    - cron: '*/25 * * * *'  # Every 25 minutes
+  workflow_dispatch:  # Manual trigger button
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Health Endpoint
+        run: |
+          echo "Pinging HuggingFace Space at $(date)"
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://codeakshit-llm-quiz-solver.hf.space/healthz)
+          echo "Health check response: $response"
+          if [ "$response" = "200" ]; then
+            echo "✅ Space is alive!"
+          else
+            echo "⚠️ Space returned: $response"
+          fi
+          
+      - name: Ping Root Endpoint  
+        run: |
+          curl -s https://codeakshit-llm-quiz-solver.hf.space/ || echo "Root endpoint check completed"
